@@ -10,7 +10,17 @@ let contacts = []
  * *** push: resources/push.jpg
  */
 function addContact(event) {
-  
+  event.preventDefault()
+  let form = event.target
+
+  let contact = {
+    name: form.name.value,
+    phone: form.phone.value,
+    emergencyContact: form.emergencyContact.checked,
+  }
+  contacts.push(contact)
+  saveContacts()
+  form.reset()
 }
 
 /**
@@ -18,6 +28,7 @@ function addContact(event) {
  * Saves the string to localstorage at the key contacts 
  */
 function saveContacts() {
+  window.localStorage.setItem("contacts", JSON.stringify(contacts))
  
 }
 
@@ -27,7 +38,10 @@ function saveContacts() {
  * the contacts array to the retrieved array
  */
 function loadContacts() {
-  
+  let storedContacts = JSON.parse(window.localStorage.getItem("contacts"))
+  if (storedContacts) {
+    contacts = storedContacts
+  }
 }
 
 /**
