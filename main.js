@@ -29,7 +29,7 @@ function addContact(event) {
  */
 function saveContacts() {
   window.localStorage.setItem("contacts", JSON.stringify(contacts))
- 
+  drawContacts()
 }
 
 /**
@@ -50,7 +50,18 @@ function loadContacts() {
  * contacts in the contacts array
  */
 function drawContacts() {
- 
+  let contactListElement = document.getElementById("contact-list")
+  let contactsTemplate = ""
+  contacts.forEach(contact => {
+    contactsTemplate += `
+    <div class="contact-card ${contact.emergencyContact ? 'emergency-contact' : ''}>
+      <h3>${contact.name}</h3>
+      <p>${contact.phone}</p>
+      <button type="button" onclick="removeContact('${contact.id}')"> remove </button>
+    </div>
+    `
+  })
+  contactListElement.innerHTML = contactsTemplate
 }
 
 /**
@@ -63,6 +74,8 @@ function drawContacts() {
  * @param {string} contactId 
  */
 function removeContact(contactId) {
+  
+
 }
 
 /**
